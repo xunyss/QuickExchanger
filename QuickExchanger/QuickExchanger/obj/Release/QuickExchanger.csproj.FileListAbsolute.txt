@@ -8,3 +8,12 @@ D:\xdev\vsproject\QuickExchanger\QuickExchanger\obj\Release\QuickExchanger.pdb
 D:\xdev\vsproject\QuickExchanger\QuickExchanger\obj\Release\QuickExchanger.About.resources
 D:\xdev\vsproject\QuickExchanger\QuickExchanger\obj\Release\QuickExchanger.Settings.resources
 D:\xdev\vsproject\QuickExchanger\QuickExchanger\obj\Release\QuickExchanger.csprojResolveAssemblyReference.cache
+D:\xdev\git\QuickExchanger\QuickExchanger\QuickExchanger\bin\Release\QuickExchanger.exe.config
+D:\xdev\git\QuickExchanger\QuickExchanger\QuickExchanger\obj\Release\QuickExchanger.exe
+D:\xdev\git\QuickExchanger\QuickExchanger\QuickExchanger\obj\Release\QuickExchanger.pdb
+D:\xdev\git\QuickExchanger\QuickExchanger\QuickExchanger\bin\Release\QuickExchanger.exe
+D:\xdev\git\QuickExchanger\QuickExchanger\QuickExchanger\bin\Release\QuickExchanger.pdb
+D:\xdev\git\QuickExchanger\QuickExchanger\QuickExchanger\obj\Release\QuickExchanger.About.resources
+D:\xdev\git\QuickExchanger\QuickExchanger\QuickExchanger\obj\Release\QuickExchanger.Properties.Resources.resources
+D:\xdev\git\QuickExchanger\QuickExchanger\QuickExchanger\obj\Release\QuickExchanger.Settings.resources
+D:\xdev\git\QuickExchanger\QuickExchanger\QuickExchanger\obj\Release\QuickExchanger.csproj.GenerateResource.Cache

@@ -11,3 +11,9 @@ D:\xdev\vsproject\QuickExchanger\QuickExchanger\obj\Debug\QuickExchanger.csprojR
 D:\xdev\git\QuickExchanger\QuickExchanger\QuickExchanger\bin\Debug\QuickExchanger.exe.config
 D:\xdev\git\QuickExchanger\QuickExchanger\QuickExchanger\obj\Debug\QuickExchanger.exe
 D:\xdev\git\QuickExchanger\QuickExchanger\QuickExchanger\obj\Debug\QuickExchanger.pdb
+D:\xdev\git\QuickExchanger\QuickExchanger\QuickExchanger\bin\Debug\QuickExchanger.exe
+D:\xdev\git\QuickExchanger\QuickExchanger\QuickExchanger\bin\Debug\QuickExchanger.pdb
+D:\xdev\git\QuickExchanger\QuickExchanger\QuickExchanger\obj\Debug\QuickExchanger.About.resources
+D:\xdev\git\QuickExchanger\QuickExchanger\QuickExchanger\obj\Debug\QuickExchanger.Properties.Resources.resources
+D:\xdev\git\QuickExchanger\QuickExchanger\QuickExchanger\obj\Debug\QuickExchanger.Settings.resources
+D:\xdev\git\QuickExchanger\QuickExchanger\QuickExchanger\obj\Debug\QuickExchanger.csproj.GenerateResource.Cache
