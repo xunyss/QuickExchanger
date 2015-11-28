@@ -1,0 +1,10 @@
+D:\xdev\vsproject\QuickExchanger\QuickExchanger\bin\Release\QuickExchanger.exe.config
+D:\xdev\vsproject\QuickExchanger\QuickExchanger\bin\Release\QuickExchanger.exe
+D:\xdev\vsproject\QuickExchanger\QuickExchanger\bin\Release\QuickExchanger.pdb
+D:\xdev\vsproject\QuickExchanger\QuickExchanger\obj\Release\QuickExchanger.Properties.Resources.resources
+D:\xdev\vsproject\QuickExchanger\QuickExchanger\obj\Release\QuickExchanger.csproj.GenerateResource.Cache
+D:\xdev\vsproject\QuickExchanger\QuickExchanger\obj\Release\QuickExchanger.exe
+D:\xdev\vsproject\QuickExchanger\QuickExchanger\obj\Release\QuickExchanger.pdb
+D:\xdev\vsproject\QuickExchanger\QuickExchanger\obj\Release\QuickExchanger.About.resources
+D:\xdev\vsproject\QuickExchanger\QuickExchanger\obj\Release\QuickExchanger.Settings.resources
+D:\xdev\vsproject\QuickExchanger\QuickExchanger\obj\Release\QuickExchanger.csprojResolveAssemblyReference.cache
