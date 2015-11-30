@@ -38,11 +38,11 @@
             // 
             this.labelTitle.AutoSize = true;
             this.labelTitle.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.labelTitle.Location = new System.Drawing.Point(23, 21);
+            this.labelTitle.Location = new System.Drawing.Point(22, 22);
             this.labelTitle.Name = "labelTitle";
             this.labelTitle.Size = new System.Drawing.Size(118, 12);
             this.labelTitle.TabIndex = 0;
-            this.labelTitle.Text = "QuickExchanger 0.9";
+            this.labelTitle.Text = "QuickExchanger 1.1";
             // 
             // btnOk
             // 
@@ -57,11 +57,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(101, 49);
+            this.label1.Location = new System.Drawing.Point(94, 48);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(238, 12);
+            this.label1.Size = new System.Drawing.Size(252, 12);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Copyright 2015 XUNY. All rights reserved.";
+            this.label1.Text = "Copyright © 2015 XUNY. All rights reserved.";
             // 
             // About
             // 
