@@ -78,6 +78,11 @@ namespace QuickExchanger
         private void OnClickMenuItem(object sender, ToolStripItemClickedEventArgs e)
         {
         //  ContextMenuStrip menu = (ContextMenuStrip)sender;   // == this.menu
+            if (e.ClickedItem.GetType() != typeof(ToolStripMenuItem))
+            {
+                return;
+            }
+
             ToolStripMenuItem menuItem = (ToolStripMenuItem)e.ClickedItem;
 
             switch (menuItem.Name)

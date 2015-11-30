@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.Win32;
-using System.Runtime.InteropServices;
 
 namespace QuickExchanger
 {
@@ -58,7 +57,7 @@ namespace QuickExchanger
             regKey.Close();
 
             // 인터넷설정정보갱신
-            RefreshInternetSettings();
+            WinInetWrap.RefreshInternetSettings();
         }
 
         /// <summary>
@@ -207,37 +206,10 @@ namespace QuickExchanger
         private static RegistryKey OpenRegistryKey()
         {
             // ProxySettingsPerUser 정책이 설정되어 있을경우 (Default)
-            String regPath = "Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings";
+            String regPath = @"Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings";
             RegistryKey regKey = Registry.CurrentUser.OpenSubKey(regPath, true);
 
             return regKey;
-        }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="hInternet"></param>
-        /// <param name="dwOption"></param>
-        /// <param name="lpBuffer"></param>
-        /// <param name="lpdwBufferLength"></param>
-        /// <returns></returns>
-        [DllImport("wininet.dll", SetLastError = true)]
-        private static extern bool InternetSetOption(IntPtr hInternet, int dwOption, IntPtr lpBuffer, int lpdwBufferLength);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private const int INTERNET_OPTION_REFRESH = 37;
-        private const int INTERNET_OPTION_SETTINGS_CHANGED = 39;
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        private static void RefreshInternetSettings()
-        {
-            InternetSetOption(IntPtr.Zero, INTERNET_OPTION_SETTINGS_CHANGED, IntPtr.Zero, 0);
-            InternetSetOption(IntPtr.Zero, INTERNET_OPTION_REFRESH, IntPtr.Zero, 0);
         }
     }
 }

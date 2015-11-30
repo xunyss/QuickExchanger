@@ -17,3 +17,4 @@ D:\xdev\git\QuickExchanger\QuickExchanger\QuickExchanger\obj\Release\QuickExchan
 D:\xdev\git\QuickExchanger\QuickExchanger\QuickExchanger\obj\Release\QuickExchanger.Properties.Resources.resources
 D:\xdev\git\QuickExchanger\QuickExchanger\QuickExchanger\obj\Release\QuickExchanger.Settings.resources
 D:\xdev\git\QuickExchanger\QuickExchanger\QuickExchanger\obj\Release\QuickExchanger.csproj.GenerateResource.Cache
+D:\xdev\git\QuickExchanger\QuickExchanger\QuickExchanger\obj\Release\QuickExchanger.csprojResolveAssemblyReference.cache
