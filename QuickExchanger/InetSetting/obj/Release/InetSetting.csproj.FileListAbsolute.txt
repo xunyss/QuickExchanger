@@ -1,0 +1,7 @@
+D:\xdev\git\QuickExchanger\QuickExchanger\InetSetting\bin\Release\InetSetting.exe.config
+D:\xdev\git\QuickExchanger\QuickExchanger\InetSetting\bin\Release\InetSetting.exe
+D:\xdev\git\QuickExchanger\QuickExchanger\InetSetting\bin\Release\InetSetting.pdb
+D:\xdev\git\QuickExchanger\QuickExchanger\InetSetting\obj\Release\InetSetting.Properties.Resources.resources
+D:\xdev\git\QuickExchanger\QuickExchanger\InetSetting\obj\Release\InetSetting.csproj.GenerateResource.Cache
+D:\xdev\git\QuickExchanger\QuickExchanger\InetSetting\obj\Release\InetSetting.exe
+D:\xdev\git\QuickExchanger\QuickExchanger\InetSetting\obj\Release\InetSetting.pdb
