@@ -39,7 +39,12 @@ namespace QuickExchanger
              * 이 경우도 다른프로세스를 별도로 띠우지 않고 해결할 수 있도록 프로그램 수정이 필요함.
              * 아래는 임시방편 -> 프록시 설정 변경시 마다 새로운 프로세스를 사용하여 인터정설정 갱신.
              */
-            Process.Start("InetSetting.exe", "/refresh");
+            try
+            {
+                Process.Start("InetSetting.exe", "/refresh");
+            }
+            catch {}
+            
 
             /*
             InternetSetOption(IntPtr.Zero, INTERNET_OPTION_SETTINGS_CHANGED, IntPtr.Zero, 0);
