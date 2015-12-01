@@ -40,9 +40,9 @@
             this.labelTitle.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.labelTitle.Location = new System.Drawing.Point(22, 22);
             this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(118, 12);
+            this.labelTitle.Size = new System.Drawing.Size(128, 12);
             this.labelTitle.TabIndex = 0;
-            this.labelTitle.Text = "QuickExchanger 1.1";
+            this.labelTitle.Text = "QuickExchanger 1.1.1";
             // 
             // btnOk
             // 
