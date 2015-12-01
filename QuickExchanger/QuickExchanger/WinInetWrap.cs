@@ -20,7 +20,7 @@ namespace QuickExchanger
         /// <param name="lpdwBufferLength"></param>
         /// <returns></returns>
         [DllImport("wininet.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern bool InternetSetOption(IntPtr hInternet, int dwOption, IntPtr lpBuffer, int lpdwBufferLength);
+        private static extern bool InternetSetOption(IntPtr hInternet, int dwOption, IntPtr lpBuffer, int lpdwBufferLength);
 
 
 
