@@ -10,6 +10,7 @@ namespace QuickExchanger
         int index;
 
         string name;
+        string pac;
         string server;
         string http;
         string https;
@@ -26,6 +27,11 @@ namespace QuickExchanger
         {
             get { return name; }
             set { name = value; }
+        }
+        public string Pac
+        {
+            get { return pac; }
+            set { pac = value; }
         }
         public string Server
         {

@@ -11,9 +11,10 @@ namespace QuickExchanger
         /// <summary>
         /// 
         /// </summary>
-        private const string PROXY_ENABLE = "ProxyEnable";
-        private const string PROXY_SERVER = "ProxyServer";
-        private const string PROXY_OVERRIDE = "ProxyOverride";
+        private const string AUTO_CONFIG_URL = "AutoConfigURL";
+        private const string PROXY_ENABLE    = "ProxyEnable";
+        private const string PROXY_SERVER    = "ProxyServer";
+        private const string PROXY_OVERRIDE  = "ProxyOverride";
 
 
         /// <summary>
@@ -63,11 +64,21 @@ namespace QuickExchanger
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="autoConfigUrl"></param>
         /// <param name="proxyServer"></param>
         /// <param name="proxyOverride"></param>
-        public static void SetProxySetting(string proxyServer, string proxyOverride)
+        public static void SetProxySetting(string autoConfigUrl, string proxyServer, string proxyOverride)
         {
             RegistryKey regKey = OpenRegistryKey();
+
+            if (autoConfigUrl != null && autoConfigUrl.Length > 0)
+            {
+                regKey.SetValue(AUTO_CONFIG_URL, autoConfigUrl);
+            }
+            else
+            {
+                regKey.DeleteValue(AUTO_CONFIG_URL, false);
+            }
 
             if (proxyServer != null && proxyServer.Length > 0)
             {
@@ -99,6 +110,7 @@ namespace QuickExchanger
         /// <param name="proxy"></param>
         public static void SetProxySetting(Proxy proxy)
         {
+            string autoConfigUrl = proxy.Pac;
             string proxyServer = proxy.Server;
             string proxyOverride = null;
 
@@ -112,7 +124,7 @@ namespace QuickExchanger
                 proxyOverride = GetProxyOverride(proxy);
             }
 
-            SetProxySetting(proxyServer, proxyOverride);
+            SetProxySetting(autoConfigUrl, proxyServer, proxyOverride);
         }
 
         /// <summary>

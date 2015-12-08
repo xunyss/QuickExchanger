@@ -1,66 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ipm>
-	<!--
+  <!--
 		<proxy/> list
 	-->
-	<proxies>
-		<!--
+  <proxies>
+    <!--
 			proxy srver information
 			attr "name" : display name in tray menu
 		-->
-		<proxy name="Sample Proxy Server">
-			<!--
+    <proxy name="Sample Proxy Server">
+      <!--
+				.pac file URL
+				"Use automatic configuration script"
+				(do not set proxy server)
+			-->
+      <pac>http://address:8080/proxy.pac</pac>
+      <!--
 				proxy server host ("Address":"Port")
 				"Use the same proxy server for all protocols"
 			-->
-			<server>160.61.190.143:18080</server>
-			<!--
+      <server>160.61.190.143:18080</server>
+      <!--
 				proxy servers by protocol
 				Don't "Use the same proxy server for all protocols"
 			-->
-			<protocols>
-				<!--
+      <protocols>
+        <!--
 					HTTP
 					<http server="10.20.30.40:8081"/>
 				-->
-				<http/>
-				<!--
+        <http/>
+        <!--
 					Secure
 					<https server="10.20.30.40:8082"/>
 				-->
-				<https/>
-				<!--
+        <https/>
+        <!--
 					FTP
 					<ftp server="10.20.30.40:8083"/>
 				-->
-				<ftp/>
-				<!--
+        <ftp/>
+        <!--
 					Socks
 					<socks server="10.20.30.40:8084"/>
 				-->
-				<socks/>
-			</protocols>
-			<!--
+        <socks/>
+      </protocols>
+      <!--
 				exceptions
 				"Do not use proxy server..."
 			-->
-			<exceptions>
-				<!--
+      <exceptions>
+        <!--
 					host
 					do not use proxy server for address beginning with..
 					(enable multiple definitions)
 				-->
-				<host>160.61</host>
-				<host>www.exception-site.com</host>
-				<!--
+        <host>160.61</host>
+        <host>www.exception-site.com</host>
+        <!--
 					"Bypass proxy server for local address"
 				-->
-				<local/>
-				<!--
+        <local/>
+        <!--
 					"<-loopback>" in Fiddler
 				-->
-				<loopback/>
-			</exceptions>
-		</proxy>
-	</proxies>
+        <loopback/>
+      </exceptions>
+    </proxy>
+  </proxies>
 </ipm>

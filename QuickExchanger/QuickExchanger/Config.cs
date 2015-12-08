@@ -52,6 +52,7 @@ namespace QuickExchanger
                 proxy.Index = index++;
 
                 proxy.Name   = proxyNode.Attributes["name"].Value;
+                proxy.Pac    = GetText(proxyNode, "pac");
                 proxy.Server = GetText(proxyNode, "server");
                 proxy.Http   = GetAttr(proxyNode, "protocols/http" , "server");
                 proxy.Https  = GetAttr(proxyNode, "protocols/https", "server");
