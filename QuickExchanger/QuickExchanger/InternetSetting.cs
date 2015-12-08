@@ -24,6 +24,7 @@ namespace QuickExchanger
         {
             RegistryKey regKey = OpenRegistryKey();
 
+            regKey.DeleteValue(AUTO_CONFIG_URL, false);
             regKey.DeleteValue(PROXY_SERVER, false);
             regKey.DeleteValue(PROXY_OVERRIDE, false);
 
