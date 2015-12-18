@@ -9,8 +9,10 @@ namespace QuickExchanger
         /// <summary>
         /// 
         /// </summary>
+        /*
         private const int INTERNET_OPTION_REFRESH = 37;
         private const int INTERNET_OPTION_SETTINGS_CHANGED = 39;
+        */
 
         /// <summary>
         /// 
@@ -20,12 +22,14 @@ namespace QuickExchanger
         /// <param name="lpBuffer"></param>
         /// <param name="lpdwBufferLength"></param>
         /// <returns></returns>
+        /*
         [DllImport("wininet.dll", SetLastError = true, CharSet = CharSet.Auto)]
         private static extern bool InternetSetOption(IntPtr hInternet, int dwOption, IntPtr lpBuffer, int lpdwBufferLength);
+        */
 
-
-
-
+        
+        
+        
         /// <summary>
         /// 
         /// </summary>
