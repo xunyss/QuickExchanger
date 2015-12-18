@@ -1,72 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ipm>
-  <!--
+<qx>
+	<!--
+		<connection/> list
+	-->
+	<network>
+		<!--
+			Network Connection
+			attr "name" : Network Connection name of Windows OS
+		-->
+		<connection name="Local Area Connection">
+			<!--
+				IPv4 Properties setting (case AUTO)
+			-->
+			<ipsetting name="my home setting">
+				<!--
+					IP address (automatically)
+					attr "src" : "dhcp"
+				-->
+				<address src="dhcp"/>
+				<!--
+					DNS server (automatically)
+					attr "src" : "dhcp"
+				-->
+				<dns src="dhcp"/>
+			</ipsetting>
+			<!--
+				IPv4 Properties setting (case MANUAL)
+			-->
+			<ipsetting name="my work setting">
+				<!--
+					IP address (static)
+					attr "src" : "static" or omit.
+				-->
+				<address>
+					<!-- IP address -->
+					<ipaddr>192.168.0.10</ipaddr>
+					<!-- Subnet mask -->
+					<subnet>255.255.255.0</subnet>
+					<!-- Default gateway -->
+					<gateway>192.168.0.1</gateway>
+				</address>
+				<!--
+					DNS server list (static)
+					attr "src" : "static" or omit.
+				-->
+				<dns>168.126.63.1</dns>
+				<dns>168.126.63.1</dns>
+			</ipsetting>
+		</connection>
+	</network>
+	<!--
 		<proxy/> list
 	-->
-  <proxies>
-    <!--
+	<proxies>
+		<!--
 			proxy srver information
 			attr "name" : display name in tray menu
 		-->
-    <proxy name="Sample Proxy Server">
-      <!--
+		<proxy name="Sample Proxy Server">
+			<!--
 				.pac file URL
 				"Use automatic configuration script"
 				(do not set proxy server)
 			-->
-      <pac>http://address:8080/proxy.pac</pac>
-      <!--
+			<pac>http://address:8080/proxy.pac</pac>
+			<!--
 				proxy server host ("Address":"Port")
 				"Use the same proxy server for all protocols"
 			-->
-      <server>160.61.190.143:18080</server>
-      <!--
+			<server>123.123.123.123:8080</server>
+			<!--
 				proxy servers by protocol
 				Don't "Use the same proxy server for all protocols"
 			-->
-      <protocols>
-        <!--
+			<protocols>
+				<!--
 					HTTP
 					<http server="10.20.30.40:8081"/>
 				-->
-        <http/>
-        <!--
+				<http/>
+				<!--
 					Secure
 					<https server="10.20.30.40:8082"/>
 				-->
-        <https/>
-        <!--
+				<https/>
+				<!--
 					FTP
 					<ftp server="10.20.30.40:8083"/>
 				-->
-        <ftp/>
-        <!--
+				<ftp/>
+				<!--
 					Socks
 					<socks server="10.20.30.40:8084"/>
 				-->
-        <socks/>
-      </protocols>
-      <!--
+				<socks/>
+			</protocols>
+			<!--
 				exceptions
 				"Do not use proxy server..."
 			-->
-      <exceptions>
-        <!--
+			<exceptions>
+				<!--
 					host
 					do not use proxy server for address beginning with..
 					(enable multiple definitions)
 				-->
-        <host>160.61</host>
-        <host>www.exception-site.com</host>
-        <!--
+				<host>160.61</host>
+				<host>www.exception-site.com</host>
+				<!--
 					"Bypass proxy server for local address"
 				-->
-        <local/>
-        <!--
+				<local/>
+				<!--
 					"<-loopback>" in Fiddler
 				-->
-        <loopback/>
-      </exceptions>
-    </proxy>
-  </proxies>
-</ipm>
+				<loopback/>
+			</exceptions>
+		</proxy>
+	</proxies>
+</qx>
