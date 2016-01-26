@@ -9,6 +9,11 @@ namespace QuickExchanger
     class TrayMain
     {
         /// <summary>
+        /// 연결목록
+        /// </summary>
+        private List<Connection> connList;
+
+        /// <summary>
         /// 프록시서버목록
         /// </summary>
         private List<Proxy> proxyList;
@@ -28,8 +33,10 @@ namespace QuickExchanger
         /// </summary>
         public void Run()
         {
-            // 프록시서버리스트 설정파일 로드
-            proxyList = Config.LoadConfigXML();
+            // 설정파일 로드
+            Config.ConfigObject confObj = Config.LoadConfigXML();
+            connList = confObj.connList;
+            proxyList = confObj.proxyList;
 
             // 메뉴생성
             menu = new ContextMenuStrip();
@@ -48,9 +55,26 @@ namespace QuickExchanger
         /// </summary>
         private void CreateMenu()
         {
-            // 프록시서버사용여부
-            menu.Items.Add("Use Proxy Server").Name = "M00";
-            ((ToolStripMenuItem)menu.Items[0]).Checked = InternetSetting.GetProxyEnable();
+            // 연결리스트
+            int connIdx = 0;
+            foreach (Connection conn in connList)
+            {
+                string name = conn.Alias;
+                if (name == null || name.Length == 0)
+                {
+                    name = conn.Name;
+                }
+
+                foreach (IPSetting ipsetting in conn.Ipsets)
+                {
+                    menu.Items.Add(name + " - " + ipsetting.Name);
+                }
+
+                if (connList.Count - 1 > connIdx++)
+                {
+                    menu.Items.Add(new ToolStripSeparator());
+                }
+            }
 
             // 프록시서버리스트
             menu.Items.Add(new ToolStripSeparator());
@@ -61,13 +85,18 @@ namespace QuickExchanger
 
             // 기본메뉴
             menu.Items.Add(new ToolStripSeparator());
-            menu.Items.Add("Clear Internet Settings").Name = "M01";
+            menu.Items.Add("Activate Proxy Server").Name = "M00";   // 프록시서버사용여부
+            menu.Items.Add("Clear Proxy Settings").Name = "M01";    // 프록시셋팅제거
             menu.Items.Add("Settings").Name = "M02";
             menu.Items.Add("About").Name = "M03";
             menu.Items.Add("Exit").Name = "M04";
 
             // 이벤트핸들러
             menu.ItemClicked += OnClickMenuItem;
+
+
+            // 메뉴상태초기화
+            GetMenuByName("M00").Checked = InternetSetting.GetProxyEnable();
         }
 
         /// <summary>
@@ -112,6 +141,21 @@ namespace QuickExchanger
         /// <summary>
         /// 
         /// </summary>
+        private ToolStripMenuItem GetMenuByName(string name)
+        {
+            foreach (ToolStripItem item in menu.Items)
+            {
+                if (name.Equals(item.Name))
+                {
+                    return ((ToolStripMenuItem)item);
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="menuItem"></param>
         private void DoToggleProxyEnable(ToolStripMenuItem menuItem)
         {
@@ -133,7 +177,8 @@ namespace QuickExchanger
                     ((ToolStripMenuItem)item).Checked = false;
                 }
             }
-            ((ToolStripMenuItem)menu.Items[0]).Checked = false;
+            // 프록시서버사용여부체크해제
+            GetMenuByName("M00").Checked = false;
 
             InternetSetting.ClearProxySetting();
         }
@@ -156,7 +201,8 @@ namespace QuickExchanger
             if (tag != null)
             {
                 // 프록시서버사용여부체크
-                ((ToolStripMenuItem)menu.Items[0]).Checked = true;
+                GetMenuByName("M00").Checked = true;
+
                 // 클릭한프록시서버체크
                 menuItem.Checked = true;
 

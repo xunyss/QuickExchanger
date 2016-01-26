@@ -12,13 +12,22 @@ namespace QuickExchanger
         /// <summary>
         /// 
         /// </summary>
+        public class ConfigObject
+        {
+            public List<Connection> connList;
+            public List<Proxy> proxyList;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         private const string CONFIG_FILE_NAME = @"config.xml";
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public static List<Proxy> LoadConfigXML()
+        public static ConfigObject LoadConfigXML()
         {
             if (!System.IO.File.Exists(CONFIG_FILE_NAME))
             {
@@ -32,7 +41,72 @@ namespace QuickExchanger
             XmlDocument xml = new XmlDocument();
             xml.Load(CONFIG_FILE_NAME);
 
-            return ParseConfigXML(xml);
+            ConfigObject confObj = new ConfigObject();
+            confObj.connList = ParseConnectionConfig(xml);
+            confObj.proxyList = ParseProxyConfig(xml);
+
+            return confObj;
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="xml"></param>
+        private static List<Connection> ParseConnectionConfig(XmlDocument xml)
+        {
+            List<Connection> connList = new List<Connection>();
+
+            int index = 0;
+            XmlNodeList connNodeList = xml.GetElementsByTagName("connection");
+            foreach (XmlNode connNode in connNodeList)
+            {
+                Connection conn = new Connection();
+                conn.Index = index++;
+
+                conn.Name = GetAttr(connNode, "name");
+                conn.Alias = GetAttr(connNode, "alias");
+
+                int ipsetidx = 0;
+                XmlNodeList ipsetNodeList = connNode.SelectNodes("ipsetting");
+                foreach (XmlNode ipsetNode in ipsetNodeList)
+                {
+                    IPSetting ipsetting = new IPSetting();
+                    ipsetting.Index = ipsetidx++;
+
+                    ipsetting.Name     = GetAttr(ipsetNode, "name");
+                    ipsetting.AddrDHCP = "dhcp".Equals(GetAttr(ipsetNode, "address", "src"));
+                    ipsetting.DnsDHCP  = "dhcp".Equals(GetAttr(ipsetNode, "dns", "src"));
+                    ipsetting.Ipaddr   = GetText(ipsetNode, "address/ipaddr");
+                    ipsetting.Subnet   = GetText(ipsetNode, "address/subnet");
+                    ipsetting.Gateway  = GetText(ipsetNode, "address/gateway");
+
+                    int dnsidx = 0;
+                    foreach (XmlNode dnsNode in ipsetNode.ChildNodes)
+                    {
+                        if (dnsNode.GetType() != typeof(XmlComment))
+                        {
+                            if ("dns".Equals(dnsNode.Name) && dnsidx < 2)
+                            {
+                                if (dnsidx == 0)
+                                {
+                                    ipsetting.Dns1 = dnsNode.InnerText;
+                                }
+                                else if (dnsidx == 1)
+                                {
+                                    ipsetting.Dns2 = dnsNode.InnerText;
+                                }
+                                dnsidx++;
+                            }
+                        }
+                    }
+
+                    conn.Ipsets.Add(ipsetting);
+                }
+
+                connList.Add(conn);
+            }
+
+            return connList;
         }
 
         /// <summary>
@@ -40,7 +114,7 @@ namespace QuickExchanger
         /// </summary>
         /// <param name="xml"></param>
         /// <returns></returns>
-        private static List<Proxy> ParseConfigXML(XmlDocument xml)
+        private static List<Proxy> ParseProxyConfig(XmlDocument xml)
         {
             List<Proxy> proxyList = new List<Proxy>();
 
@@ -51,7 +125,7 @@ namespace QuickExchanger
                 Proxy proxy = new Proxy();
                 proxy.Index = index++;
 
-                proxy.Name   = proxyNode.Attributes["name"].Value;
+                proxy.Name   = GetAttr(proxyNode, "name");
                 proxy.Pac    = GetText(proxyNode, "pac");
                 proxy.Server = GetText(proxyNode, "server");
                 proxy.Http   = GetAttr(proxyNode, "protocols/http" , "server");
@@ -80,18 +154,17 @@ namespace QuickExchanger
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="baseNode"></param>
-        /// <param name="xpath"></param>
+        /// <param name="node"></param>
+        /// <param name="name"></param>
         /// <returns></returns>
-        private static string GetText(XmlNode baseNode, string xpath)
+        private static string GetAttr(XmlNode node, string name)
         {
-            XmlNode node = baseNode.SelectSingleNode(xpath);
-            if (node != null)
+            XmlAttribute attr = node.Attributes[name];
+            if (attr != null)
             {
-                return node.InnerText;
+                return attr.Value;
             }
-
-            return null;
+            return "";
         }
 
         /// <summary>
@@ -111,6 +184,23 @@ namespace QuickExchanger
                 {
                     return attr.Value;
                 }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="baseNode"></param>
+        /// <param name="xpath"></param>
+        /// <returns></returns>
+        private static string GetText(XmlNode baseNode, string xpath)
+        {
+            XmlNode node = baseNode.SelectSingleNode(xpath);
+            if (node != null)
+            {
+                return node.InnerText;
             }
 
             return null;

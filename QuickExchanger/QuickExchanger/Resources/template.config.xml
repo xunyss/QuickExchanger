@@ -6,9 +6,10 @@
 	<network>
 		<!--
 			Network Connection
-			attr "name" : Network Connection name of Windows OS
+			attr "alias" : Display name in Tray Menu
+			attr "name"  : Network Connection name of Windows OS
 		-->
-		<connection name="Local Area Connection">
+		<connection alias="LAN" name="Local Area Connection">
 			<!--
 				IPv4 Properties setting (case AUTO)
 			-->
@@ -45,7 +46,7 @@
 					attr "src" : "static" or omit.
 				-->
 				<dns>168.126.63.1</dns>
-				<dns>168.126.63.1</dns>
+				<dns>168.126.63.2</dns>
 			</ipsetting>
 		</connection>
 	</network>

@@ -22,7 +22,7 @@ namespace QuickExchanger
         {
             //Dispose();
 
-            Process.Start("netsh", "interface ip set address name=\"로컬 영역 연결\" source=static 123.123.123.123");
+            //Process.Start("netsh", "interface ip set address name=\"로컬 영역 연결\" source=static 123.123.123.123");
             
         }
     }
