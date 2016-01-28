@@ -42,7 +42,7 @@
             this.labelTitle.Name = "labelTitle";
             this.labelTitle.Size = new System.Drawing.Size(128, 12);
             this.labelTitle.TabIndex = 0;
-            this.labelTitle.Text = "QuickExchanger 1.1.3";
+            this.labelTitle.Text = "QuickExchanger 1.4.1";
             // 
             // btnOk
             // 

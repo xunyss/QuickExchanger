@@ -20,10 +20,7 @@ namespace QuickExchanger
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            //Dispose();
-
-            //Process.Start("netsh", "interface ip set address name=\"로컬 영역 연결\" source=static 123.123.123.123");
-            
+            Dispose();
         }
     }
 }

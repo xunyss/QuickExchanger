@@ -74,8 +74,8 @@ namespace QuickExchanger
                     ipsetting.Index = ipsetidx++;
 
                     ipsetting.Name     = GetAttr(ipsetNode, "name");
-                    ipsetting.AddrDHCP = "dhcp".Equals(GetAttr(ipsetNode, "address", "src"));
-                    ipsetting.DnsDHCP  = "dhcp".Equals(GetAttr(ipsetNode, "dns", "src"));
+                    ipsetting.AddrDHCP = "dhcp" == GetAttr(ipsetNode, "address", "src");
+                    ipsetting.DnsDHCP  = "dhcp" == GetAttr(ipsetNode, "dns", "src");
                     ipsetting.Ipaddr   = GetText(ipsetNode, "address/ipaddr");
                     ipsetting.Subnet   = GetText(ipsetNode, "address/subnet");
                     ipsetting.Gateway  = GetText(ipsetNode, "address/gateway");
@@ -85,7 +85,7 @@ namespace QuickExchanger
                     {
                         if (dnsNode.GetType() != typeof(XmlComment))
                         {
-                            if ("dns".Equals(dnsNode.Name) && dnsidx < 2)
+                            if ("dns" == dnsNode.Name && dnsidx < 2)
                             {
                                 if (dnsidx == 0)
                                 {
@@ -139,7 +139,7 @@ namespace QuickExchanger
                     {
                         if (hostNode.GetType() != typeof(XmlComment))
                         {
-                            proxy.Exceptions.Add("host".Equals(hostNode.Name) ? hostNode.InnerText : hostNode.Name);
+                            proxy.Exceptions.Add("host" == hostNode.Name ? hostNode.InnerText : hostNode.Name);
                         }
                     }
                 }

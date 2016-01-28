@@ -65,6 +65,19 @@ namespace QuickExchanger
         /// <summary>
         /// 
         /// </summary>
+        public static string GetProxyServer()
+        {
+            RegistryKey regKey = OpenRegistryKey();
+
+            object value = regKey.GetValue(PROXY_SERVER, "");
+            regKey.Close();
+
+            return value.ToString();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="autoConfigUrl"></param>
         /// <param name="proxyServer"></param>
         /// <param name="proxyOverride"></param>
@@ -111,21 +124,14 @@ namespace QuickExchanger
         /// <param name="proxy"></param>
         public static void SetProxySetting(Proxy proxy)
         {
-            string autoConfigUrl = proxy.Pac;
-            string proxyServer = proxy.Server;
             string proxyOverride = null;
-
-            if (proxyServer == null || proxyServer.Length == 0)
-            {
-                proxyServer = GetProxyServerStringByProtocol(proxy);
-            }
 
             if (proxy.Exceptions.Count > 0)
             {
                 proxyOverride = GetProxyOverride(proxy);
             }
 
-            SetProxySetting(autoConfigUrl, proxyServer, proxyOverride);
+            SetProxySetting(proxy.Pac, GenProxyServerString(proxy), proxyOverride);
         }
 
         /// <summary>
@@ -133,7 +139,24 @@ namespace QuickExchanger
         /// </summary>
         /// <param name="proxy"></param>
         /// <returns></returns>
-        private static string GetProxyServerStringByProtocol(Proxy proxy)
+        public static string GenProxyServerString(Proxy proxy)
+        {
+            string proxyServer = proxy.Server;
+
+            if (proxyServer == null || proxyServer.Length == 0)
+            {
+                proxyServer = GenProxyServerStringByProtocol(proxy);
+            }
+
+            return proxyServer;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="proxy"></param>
+        /// <returns></returns>
+        public static string GenProxyServerStringByProtocol(Proxy proxy)
         {
             string proxyServer = "";
 

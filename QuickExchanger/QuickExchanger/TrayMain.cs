@@ -73,6 +73,7 @@ namespace QuickExchanger
         /// </summary>
         private void CreateMenu()
         {
+            ////////////////////////////////////////////////////////////////////
             // 메뉴-연결리스트
             int prevConnIndex = -1, connIndex = 0;
             foreach (IPSetting ipset in ipsetList)
@@ -95,6 +96,7 @@ namespace QuickExchanger
                 prevConnIndex = connIndex;
             }
 
+            ////////////////////////////////////////////////////////////////////
             // 메뉴-프록시서버리스트
             menu.Items.Add(new ToolStripSeparator());
             foreach (Proxy proxy in proxyList)
@@ -103,6 +105,7 @@ namespace QuickExchanger
                     .Tag = new MenuKey(MenuKey.PROXY, proxy.Index);
             }
 
+            ////////////////////////////////////////////////////////////////////
             // 기본메뉴
             menu.Items.Add(new ToolStripSeparator());
             menu.Items.Add("Activate Proxy Server").Name = "M00";   // 프록시서버사용여부
@@ -112,33 +115,59 @@ namespace QuickExchanger
             menu.Items.Add("Exit").Name = "M04";
 
             // 메뉴상태초기화
-            GetMenuByName("M00").Checked = InternetSetting.GetProxyEnable();
-            // 주소메뉴상태초기화
-            {
-                foreach (ToolStripItem item in menu.Items)
-                {
-                    MenuKey menukey = (MenuKey)item.Tag;
-                    if (menukey != null)
-                    {
-                        if (menukey.type == MenuKey.IPSETTING)
-                        {
-                            IPSetting ipset = ipsetList[menukey.index];
-                            Connection conn = ipset.Conn;
-                            string ipaddr = ConnectionSetting.getCurrentIP(conn.Name);
+            InitMenuStatus();
 
-                            if ((ipaddr == ConnectionSetting.DHCP && ipset.AddrDHCP) ||
-                                (ipaddr != null && ipaddr.Length > 0 && ipaddr == ipset.Ipaddr))
-                            {
-                                ((ToolStripMenuItem)item).Checked = true;
-                            }
+            // 이벤트핸들러
+            menu.ItemClicked += OnClickMenuItem;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void InitMenuStatus()
+        {
+            // 현재사용중인항목
+            foreach (ToolStripItem item in menu.Items)
+            {
+                MenuKey menukey = (MenuKey)item.Tag;
+                if (menukey != null)
+                {
+                    bool menucheck = false;
+
+                    // 연결주소
+                    if (menukey.type == MenuKey.IPSETTING)
+                    {
+                        IPSetting ipset = ipsetList[menukey.index];
+                        string curip = ConnectionSetting.getCurrentIP(ipset.Conn.Name);
+
+                        if ((curip == ConnectionSetting.DHCP && ipset.AddrDHCP) ||
+                            (curip != null && curip.Length > 0 && curip == ipset.Ipaddr))
+                        {
+                            menucheck = true;
                         }
+                    }
+                    // 프록시서버
+                    else if (menukey.type == MenuKey.PROXY)
+                    {
+                        Proxy proxy = proxyList[menukey.index];
+                        string pss = InternetSetting.GenProxyServerString(proxy);
+                        string currpss = InternetSetting.GetProxyServer();
+
+                        if (currpss != null && currpss.Length > 0 && currpss == pss)
+                        {
+                            menucheck = true;
+                        }
+                    }
+
+                    if (menucheck)
+                    {
+                        ((ToolStripMenuItem)item).Checked = true;
                     }
                 }
             }
 
-
-            // 이벤트핸들러
-            menu.ItemClicked += OnClickMenuItem;
+            // 프록시서버사용여부
+            GetMenuByName("M00").Checked = InternetSetting.GetProxyEnable();
         }
 
         /// <summary>
@@ -160,7 +189,7 @@ namespace QuickExchanger
             {
                 // 기본메뉴
                 case "M00":     // Use Proxy Server
-                    DoToggleProxyEnable(menuItem);
+                    DoToggleProxyEnable();
                     break;
                 case "M01":     // Clear Internet Settings
                     DoClearProxySetting();
@@ -178,11 +207,11 @@ namespace QuickExchanger
                 //
                 default:
                     MenuKey menukey = (MenuKey)menuItem.Tag;
-                    if (MenuKey.IPSETTING.Equals(menukey.type))
+                    if (MenuKey.IPSETTING == menukey.type)
                     {
                         DoConnectionIPSetting(menuItem);
                     }
-                    else if (MenuKey.PROXY.Equals(menukey.type))
+                    else if (MenuKey.PROXY == menukey.type)
                     {
                         DoExchangeProxy(menuItem);
                     }
@@ -197,12 +226,31 @@ namespace QuickExchanger
         {
             foreach (ToolStripItem item in menu.Items)
             {
-                if (name.Equals(item.Name))
+                if (name == item.Name)
                 {
                     return ((ToolStripMenuItem)item);
                 }
             }
             return null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        private void UncheckMenus(string type)
+        {
+            foreach (ToolStripItem item in menu.Items)
+            {
+                if (item.Tag != null)
+                {
+                    MenuKey menukey = (MenuKey)item.Tag;
+                    if (menukey.type == type)
+                    {
+                        ((ToolStripMenuItem)item).Checked = false;
+                    }
+                }
+            }
         }
 
 
@@ -212,13 +260,7 @@ namespace QuickExchanger
         /// <param name="menuItem"></param>
         private void DoConnectionIPSetting(ToolStripMenuItem menuItem)
         {
-            foreach (ToolStripItem item in menu.Items)
-            {
-                if (item.Tag != null)
-                {
-                    ((ToolStripMenuItem)item).Checked = false;
-                }
-            }
+            UncheckMenus(MenuKey.IPSETTING);
 
             MenuKey menukey = (MenuKey)menuItem.Tag;
             if (menukey != null)
@@ -228,9 +270,8 @@ namespace QuickExchanger
 
                 int ipsetIndex = menukey.index;
                 IPSetting ipset = ipsetList[ipsetIndex];
-                Connection conn = ipset.Conn;
 
-                ConnectionSetting.SetIPSetting(conn, ipset);
+                ConnectionSetting.SetIPSetting(ipset.Conn, ipset);
             }
         }
 
@@ -240,13 +281,7 @@ namespace QuickExchanger
         /// <param name="menuItem"></param>
         private void DoExchangeProxy(ToolStripMenuItem menuItem)
         {
-            foreach (ToolStripItem item in menu.Items)
-            {
-                if (item.Tag != null)
-                {
-                    ((ToolStripMenuItem)item).Checked = false;
-                }
-            }
+            UncheckMenus(MenuKey.PROXY);
 
             MenuKey menukey = (MenuKey)menuItem.Tag;
             if (menukey != null)
@@ -268,11 +303,12 @@ namespace QuickExchanger
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="menuItem"></param>
-        private void DoToggleProxyEnable(ToolStripMenuItem menuItem)
+        private void DoToggleProxyEnable()
         {
-            bool enable = !menuItem.Checked;
-            menuItem.Checked = enable;
+            ToolStripMenuItem proxyToggle = GetMenuByName("M00");
+
+            bool enable = !proxyToggle.Checked;
+            proxyToggle.Checked = enable;
 
             InternetSetting.SetProxyEnable(enable);
         }
@@ -282,13 +318,8 @@ namespace QuickExchanger
         /// </summary>
         private void DoClearProxySetting()
         {
-            foreach (ToolStripItem item in menu.Items)
-            {
-                if (item.Tag != null)
-                {
-                    ((ToolStripMenuItem)item).Checked = false;
-                }
-            }
+            UncheckMenus(MenuKey.PROXY);
+
             // 프록시서버사용여부체크해제
             GetMenuByName("M00").Checked = false;
 
