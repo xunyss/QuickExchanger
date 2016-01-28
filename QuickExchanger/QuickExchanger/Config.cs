@@ -14,7 +14,7 @@ namespace QuickExchanger
         /// </summary>
         public class ConfigObject
         {
-            public List<Connection> connList;
+            public List<IPSetting> ipsetList;
             public List<Proxy> proxyList;
         }
 
@@ -42,7 +42,7 @@ namespace QuickExchanger
             xml.Load(CONFIG_FILE_NAME);
 
             ConfigObject confObj = new ConfigObject();
-            confObj.connList = ParseConnectionConfig(xml);
+            confObj.ipsetList = ParseConnectionConfig(xml);
             confObj.proxyList = ParseProxyConfig(xml);
 
             return confObj;
@@ -52,11 +52,11 @@ namespace QuickExchanger
         /// 
         /// </summary>
         /// <param name="xml"></param>
-        private static List<Connection> ParseConnectionConfig(XmlDocument xml)
+        private static List<IPSetting> ParseConnectionConfig(XmlDocument xml)
         {
-            List<Connection> connList = new List<Connection>();
+            List<IPSetting> ipsetList = new List<IPSetting>();
 
-            int index = 0;
+            int index = 0, ipsetidx = 0;
             XmlNodeList connNodeList = xml.GetElementsByTagName("connection");
             foreach (XmlNode connNode in connNodeList)
             {
@@ -66,11 +66,11 @@ namespace QuickExchanger
                 conn.Name = GetAttr(connNode, "name");
                 conn.Alias = GetAttr(connNode, "alias");
 
-                int ipsetidx = 0;
                 XmlNodeList ipsetNodeList = connNode.SelectNodes("ipsetting");
                 foreach (XmlNode ipsetNode in ipsetNodeList)
                 {
                     IPSetting ipsetting = new IPSetting();
+                    ipsetting.Conn = conn;
                     ipsetting.Index = ipsetidx++;
 
                     ipsetting.Name     = GetAttr(ipsetNode, "name");
@@ -101,12 +101,11 @@ namespace QuickExchanger
                     }
 
                     conn.Ipsets.Add(ipsetting);
+                    ipsetList.Add(ipsetting);
                 }
-
-                connList.Add(conn);
             }
 
-            return connList;
+            return ipsetList;
         }
 
         /// <summary>

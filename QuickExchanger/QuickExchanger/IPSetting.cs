@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace QuickExchanger
 {
     /// <summary>
@@ -11,22 +6,22 @@ namespace QuickExchanger
     /// </summary>
     class IPSetting
     {
-        int connectionIndex;
+        Connection conn;
         int index;
+
         string name;
         bool addrDHCP;
         string ipaddr;
         string subnet;
         string gateway;
-
         bool dnsDHCP;
         string dns1;
         string dns2;
 
-        public int ConnectionIndex
+        public Connection Conn
         {
-            get { return connectionIndex; }
-            set { connectionIndex = value; }
+            get { return conn; }
+            set { conn = value; }
         }
         public int Index
         {

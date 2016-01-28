@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace QuickExchanger
 {
@@ -12,6 +8,7 @@ namespace QuickExchanger
     class Connection
     {
         int index;
+
         string name;
         string alias;
         List<IPSetting> ipsets = new List<IPSetting>();
