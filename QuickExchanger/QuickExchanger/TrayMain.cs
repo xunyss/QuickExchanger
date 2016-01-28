@@ -113,6 +113,7 @@ namespace QuickExchanger
 
             // 메뉴상태초기화
             GetMenuByName("M00").Checked = InternetSetting.GetProxyEnable();
+            // 주소메뉴상태초기화
             {
                 foreach (ToolStripItem item in menu.Items)
                 {
